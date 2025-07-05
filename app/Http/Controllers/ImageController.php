@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Models\User;
+
+class ImageController extends Controller
+{
+    /**
+     * Handle an incoming uploading image request.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function store(Request $request){
+
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg|max:2048'
+        ]);
+
+        // Generate filename
+        $prefix = env('UPLOAD_FILENAME', 'gemastik');
+        $extension = $request->file('file')->getClientOriginalExtension();
+        $fileName = $prefix . '.' . $extension;
+
+        // Store file
+        $path = $request->file('file')->storeAs('uploads', $fileName, 'public');
+
+        // Return JSON response with public URL
+        return response()->json([
+            'user' => $request->user()->name,
+            'message' => 'Image uploaded successfully.',
+            'path' => Storage::url($path),
+        ], 201);
+    }
+}
