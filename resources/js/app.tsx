@@ -1,3 +1,4 @@
+import 'remixicon/fonts/remixicon.css';
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/react';

@@ -20,7 +20,7 @@ class ImageController extends Controller
         ]);
 
         // Generate filename
-        $prefix = env('UPLOAD_FILENAME', 'gemastik');
+        $prefix = 'gemastik';
         $extension = $request->file('file')->getClientOriginalExtension();
         $fileName = $prefix . '.' . $extension;
 
