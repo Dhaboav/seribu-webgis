@@ -34,10 +34,10 @@ class ApiTokenController extends Controller
     {
         $user = $request->user();
 
-        $plainToken = Str::random(64);
+        $plainToken = 'api-' . Str::random(56);
 
         $user->forceFill([
-            'api_token' => hash('sha256', $plainToken),
+            'api_token' => $plainToken,
             'api_token_expires_at' => now()->addDays(30),
             'api_token_last_used_at' => null,
         ])->save();

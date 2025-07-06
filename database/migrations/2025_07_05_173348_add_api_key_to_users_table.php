@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('api_token', 64)->unique()->nullable();
+            $table->string('api_token', 60)->unique()->nullable();
             $table->timestamp('api_token_last_used_at')->nullable();
             $table->timestamp('api_token_expires_at')->nullable();
         });
