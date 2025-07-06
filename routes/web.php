@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Http\Controllers\ApiTokenController;
+use App\Http\Controllers\Api\ApiTokenController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');

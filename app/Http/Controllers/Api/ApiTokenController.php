@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Http\JsonResponse;
@@ -38,7 +38,7 @@ class ApiTokenController extends Controller
 
         $user->forceFill([
             'api_token' => $plainToken,
-            'api_token_expires_at' => now()->addDays(30),
+            'api_token_expires_at' => null,
             'api_token_last_used_at' => null,
         ])->save();
 
