@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Http\Controllers\ApiTokenController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -17,6 +19,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
             'fullname' => auth()->user()->name
         ]);
     })->name('dashboard');
+
+    Route::get('user-token', [ApiTokenController::class, 'index'])
+        ->name('token.get');
+
+    Route::post('create-token', [ApiTokenController::class, 'store'])
+        ->name('token.request');
+
+    Route::post('delete-token', [ApiTokenController::class, 'destroy'])
+        ->name('token.delete');
+
 });
 
 require __DIR__.'/settings.php';
