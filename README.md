@@ -74,13 +74,19 @@ This project is a modified version of the Laravel React Starter Kit.
     php artisan migrate
     ```
 
-8. **Build frontend assets:**
+8. **Create symbolic link to public storage:**
+
+    ```bash
+    php artisan storage:link
+    ```
+
+9. **Build frontend assets:**
 
     ```bash
     npm run build
     ```
 
-9. **Serve the application:**
+10. **Serve the application:**
 
     ```bash
     php artisan serve
