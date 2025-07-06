@@ -1,5 +1,6 @@
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
+import { AlignRight, X } from 'lucide-react';
 import { useState } from 'react';
 
 function NavItem({ href, children }: { href: string; children: React.ReactNode }) {
@@ -46,7 +47,7 @@ export default function Welcome() {
                                     aria-expanded={isMenuOpen}
                                     aria-controls="mobile-menu"
                                 >
-                                    {isMenuOpen ? <i className="ri-close-large-line"></i> : <i className="ri-menu-3-fill"></i>}
+                                    {isMenuOpen ? <X /> : <AlignRight />}
                                 </button>
                                 <div
                                     id="mobile-menu"
@@ -67,7 +68,7 @@ export default function Welcome() {
                 <main className="bg-black">
                     <section
                         id="hero-section"
-                        className="flex h-screen flex-col-reverse items-center justify-center bg-gradient-to-b from-black to-purple-900 px-8 text-center text-white lg:flex-row lg:px-36"
+                        className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-black to-purple-900 px-8 text-center text-white lg:flex-row lg:px-36"
                     >
                         <div className="mt-8 flex w-full flex-col items-center justify-center lg:mt-0 lg:w-1/2">
                             <h1 className="max-w-md bg-gradient-to-b from-white to-gray-600 bg-clip-text text-4xl leading-tight font-medium text-transparent md:text-5xl lg:text-6xl">
@@ -86,7 +87,7 @@ export default function Welcome() {
                                 </Link>
                             </div>
                         </div>
-                        <div className="flex w-full items-center justify-center lg:w-1/2">
+                        <div className="mt-12 flex w-full items-center justify-center lg:mt-0 lg:w-1/2">
                             <img
                                 src="/storage/uploads/gemastik.jpg"
                                 alt="Foto Sungai dengan deteksi sampah"

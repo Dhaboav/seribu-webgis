@@ -13,7 +13,9 @@ Route::get('/docs', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        return Inertia::render('dashboard', [
+            'fullname' => auth()->user()->name
+        ]);
     })->name('dashboard');
 });
 
