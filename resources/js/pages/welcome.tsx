@@ -14,10 +14,11 @@ export default function Welcome() {
     const { auth } = usePage<SharedData>().props;
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+    const { appName } = usePage().props as { appName?: string };
 
     return (
         <>
-            <Head title="Welcome">
+            <Head title={`Homepage - ${appName}`}>
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
@@ -36,7 +37,7 @@ export default function Welcome() {
                             <div className="flex flex-wrap items-center justify-between px-8 lg:px-36">
                                 <div className="flex items-center space-x-1">
                                     <img src="/vite.svg" alt="Logo" />
-                                    <span className="font-semibold text-gray-300">SERIBU</span>
+                                    <span className="font-semibold text-gray-300">{appName}</span>
                                 </div>
                                 <button
                                     onClick={toggleMenu}
@@ -55,7 +56,7 @@ export default function Welcome() {
                                 >
                                     <ul className="mt-4 flex flex-col p-4 font-medium md:mt-0 md:flex-row md:space-x-10 md:p-0">
                                         <NavItem href={route('home')}>Home</NavItem>
-                                        <NavItem href={route('login')}>Dokumentasi</NavItem>
+                                        <NavItem href={route('docs')}>Dokumentasi</NavItem>
                                     </ul>
                                 </div>
                             </div>
@@ -78,7 +79,7 @@ export default function Welcome() {
                             </p>
                             <div className="mt-6 flex">
                                 <Link
-                                    href={route('login')}
+                                    href={route('docs')}
                                     className="rounded-lg border-2 border-white bg-transparent p-3 font-semibold text-white shadow-md transition hover:bg-black"
                                 >
                                     Dokumentasi
