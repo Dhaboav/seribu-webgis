@@ -14,6 +14,7 @@ Body:
     file: (image file)`,
 
         response: `{
+    "user"   : "Username",
     "message": "Image uploaded successfully.",
     "path"   : "/storage/uploads/gemastik.jpg"
 }`,
