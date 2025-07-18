@@ -20,7 +20,7 @@ Route::get('/', function () {
 
     return Inertia::render('welcome', [
         'markers' => $markers,
-        'images' => $images,
+        'images' => $images->toArray(),
     ]);
 
 })->name('home');
