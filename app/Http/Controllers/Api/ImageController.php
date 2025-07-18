@@ -18,14 +18,14 @@ class ImageController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'id_lokasi'=>'required|integer|exists:locations,id',
+            'id_location'=>'required|integer|exists:locations,id',
             'file' => 'required|image|mimes:jpg|max:2048'
         ]);
 
-        $id_lokasi = $request->input('id_lokasi');
+        $id_location = $request->input('id_location');
 
         $extension = $request->file('file')->getClientOriginalExtension();
-        $fileName = $id_lokasi . '.' . $extension;
+        $fileName = $id_location . '.' . $extension;
 
         $path = $request->file('file')->storeAs('uploads', $fileName, 'public');
 
