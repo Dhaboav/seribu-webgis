@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Datas;
 
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 
 class DatasController extends Controller
@@ -55,12 +55,17 @@ class DatasController extends Controller
 
         $data = Datas::findOrFail($request->data_id);
 
-        $imagePath = public_path($data->file_path); 
+        $relativePath = str_replace('/storage/', '', $data->file_path);
 
-        // Delete the image file if it exists
-        if (File::exists($imagePath)) {
-            File::delete($imagePath);
+        $disk = Storage::disk('public');
+        if (!$disk->exists($relativePath)) {
+            return response()->json([
+                'message' => 'File not found.',
+            ], 404);
         }
+
+        // Delete the file
+        $disk->delete($relativePath);
 
         // Delete the database record
         $data->delete();
