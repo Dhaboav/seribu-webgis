@@ -1,3 +1,4 @@
+import AppMaps from '@/components/app-maps';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 import { AlignRight, X } from 'lucide-react';
@@ -87,12 +88,8 @@ export default function Welcome() {
                                 </Link>
                             </div>
                         </div>
-                        <div className="mt-12 flex w-full items-center justify-center lg:mt-0 lg:w-1/2">
-                            <img
-                                src="/storage/uploads/gemastik.jpg"
-                                alt="Foto Sungai dengan deteksi sampah"
-                                className="h-80 w-md rounded-lg border-4 border-white object-contain shadow-lg"
-                            />
+                        <div className="mt-12 flex h-96 w-full items-center justify-center lg:mt-0 lg:w-1/2">
+                            <AppMaps />
                         </div>
                     </section>
                 </main>
