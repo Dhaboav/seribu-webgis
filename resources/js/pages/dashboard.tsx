@@ -5,7 +5,7 @@ import useTokenManager from '@/hooks/use-token-manager';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
-import { ClipboardCheck, Copy, Plus, Trash2 } from 'lucide-react';
+import { ClipboardCheck, Copy, LocationEdit, MapPinPlus, MapPinX, Plus, Trash2 } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
 
@@ -38,16 +38,34 @@ export default function Dashboard() {
                 <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
                     <div className="pointer-events-none absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
 
-                    <div className="relative mt-12 flex flex-col items-center justify-center px-4 lg:mt-0 lg:h-full">
+                    <div className="relative mt-12 flex flex-col items-center justify-center p-4 lg:mt-0 lg:h-full">
                         <h1 className="text-4xl font-bold text-black md:text-5xl lg:text-6xl dark:text-white">
                             <Greeting />
                         </h1>
                         <p className="mt-2 text-2xl font-semibold text-gray-500 md:text-3xl lg:text-6xl dark:text-gray-300">{fullname}</p>
 
-                        {/* Modular Token Box */}
                         <div className="mt-6 flex w-full max-w-5xl flex-col gap-4 lg:flex-row lg:gap-6">
-                            <div className="h-[276px] w-full lg:w-1/2">
-                                <AppMaps />
+                            <div className="w-full rounded-lg border-4 border-black p-4 lg:w-1/2 dark:border-white">
+                                <div className="mb-4 flex flex-col gap-2 lg:flex-row">
+                                    <button className="flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-400 focus:outline-none">
+                                        <MapPinPlus className="h-4 w-4" />
+                                        <p>Tambah</p>
+                                    </button>
+
+                                    <button className="flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-400 focus:outline-none">
+                                        <MapPinX className="h-4 w-4" />
+                                        <p>Hapus</p>
+                                    </button>
+
+                                    <button className="flex items-center gap-2 rounded-md bg-yellow-400 px-4 py-2 text-white hover:bg-yellow-500 focus:outline-none">
+                                        <LocationEdit className="h-4 w-4" />
+                                        <p>Edit</p>
+                                    </button>
+                                </div>
+
+                                <div className="h-[270px]">
+                                    <AppMaps />
+                                </div>
                             </div>
 
                             <div className="w-full lg:w-1/2">
