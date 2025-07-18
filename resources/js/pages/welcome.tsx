@@ -17,6 +17,7 @@ export default function Welcome() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
     const { appName } = usePage().props as { appName?: string };
+    const { markers } = usePage<{ markers: { id: number; name: string; coords: string }[] }>().props;
 
     return (
         <>
@@ -89,7 +90,7 @@ export default function Welcome() {
                             </div>
                         </div>
                         <div className="mt-12 flex h-96 w-full items-center justify-center lg:mt-0 lg:w-1/2">
-                            <AppMaps />
+                            <AppMaps markers={markers} />
                         </div>
                     </section>
                 </main>

@@ -1,4 +1,5 @@
-import { GoogleMap, useLoadScript } from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api';
+import { useState } from 'react';
 
 const MAP_CENTER = {
     lat: -0.05561422701172856,
@@ -7,10 +8,18 @@ const MAP_CENTER = {
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-export default function AppMaps() {
+type MarkerData = {
+    id: number;
+    name: string;
+    coords: string;
+};
+
+export default function AppMaps({ markers = [] }: { markers: MarkerData[] }) {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     });
+
+    const [activeMarkerId, setActiveMarkerId] = useState<number | null>(null);
 
     if (loadError) {
         console.error('Google Maps failed to load:', loadError);
@@ -41,7 +50,32 @@ export default function AppMaps() {
                     streetViewControl: false,
                     mapTypeControl: false,
                 }}
-            />
+            >
+                {markers.map((marker) => {
+                    const [lat, lng] = marker.coords.split(',').map(parseFloat);
+                    const isActive = activeMarkerId === marker.id;
+
+                    return (
+                        <Marker key={marker.id} position={{ lat, lng }} title={marker.name} onClick={() => setActiveMarkerId(marker.id)}>
+                            {isActive && (
+                                <InfoWindow onCloseClick={() => setActiveMarkerId(null)}>
+                                    <div className="w-48 text-sm">
+                                        <p className="font-semibold text-black mb-4">{marker.name}</p>
+                                        <img
+                                            src={`/storage/uploads/${marker.id}.jpg`}
+                                            alt={marker.name}
+                                            className="mb-2 h-24 w-full rounded-md object-cover"
+                                        />
+                                        <p className="text-xs text-gray-500">
+                                            Lat: {lat.toFixed(6)}, Lng: {lng.toFixed(6)}
+                                        </p>
+                                    </div>
+                                </InfoWindow>
+                            )}
+                        </Marker>
+                    );
+                })}
+            </GoogleMap>
         </div>
     );
 }

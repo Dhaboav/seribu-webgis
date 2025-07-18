@@ -18,18 +18,18 @@ class ImageController extends Controller
     public function store(Request $request){
 
         $request->validate([
-            'file' => 'required|image|mimes:jpeg|max:2048'
+            'id_lokasi'=>'required|integer|exists:locations,id',
+            'file' => 'required|image|mimes:jpg|max:2048'
         ]);
 
-        // Generate filename
-        $prefix = 'gemastik';
-        $extension = $request->file('file')->getClientOriginalExtension();
-        $fileName = $prefix . '.' . $extension;
+        $id_lokasi = $request->input('id_lokasi');
 
-        // Store file
+        $extension = $request->file('file')->getClientOriginalExtension();
+        $fileName = $id_lokasi . '.' . $extension;
+
         $path = $request->file('file')->storeAs('uploads', $fileName, 'public');
 
-        // Return JSON response with public URL
+        // Response JSON
         return response()->json([
             'user' => $request->user()->name,
             'message' => 'Image uploaded successfully.',

@@ -4,9 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Api\ApiTokenController;
+use App\Models\Location;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    $markers = Location::select('id', 'name', 'coords')->get();
+
+    return Inertia::render('welcome', [
+        'markers' => $markers,
+    ]);
+
 })->name('home');
 
 Route::get('/docs', function () {
