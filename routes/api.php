@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\DatasController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\LocationController;
 use Illuminate\Http\Request;
@@ -12,4 +13,6 @@ Route::middleware('auth:api', 'last_use_api_token')->group(function () {
 
     Route::post('create-marker', [LocationController::class, 'store']);
     Route::delete('delete-marker', [LocationController::class, 'destroy']);
+
+    Route::post('upload-data', [DatasController::class, 'store']);
 });

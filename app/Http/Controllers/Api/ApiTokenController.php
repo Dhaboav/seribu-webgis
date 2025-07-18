@@ -34,7 +34,7 @@ class ApiTokenController extends Controller
     {
         $user = $request->user();
 
-        $plainToken = 'api-' . Str::random(56);
+        $plainToken = Str::random(24);
 
         $user->forceFill([
             'api_token' => $plainToken,
