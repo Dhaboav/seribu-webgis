@@ -1,11 +1,10 @@
 import CardBox from '@/components/app-cardbox';
-import AppMaps from '@/components/app-maps';
 import Greeting from '@/components/utils/app-greeting';
 import useTokenManager from '@/hooks/use-token-manager';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
-import { ClipboardCheck, Copy, LocationEdit, MapPinPlus, MapPinX, Plus, Trash2 } from 'lucide-react';
+import { ClipboardCheck, Copy, Plus, Trash2 } from 'lucide-react';
 
 const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
 
@@ -44,74 +43,49 @@ export default function Dashboard() {
                         </h1>
                         <p className="mt-2 text-2xl font-semibold text-gray-500 md:text-3xl lg:text-6xl dark:text-gray-300">{fullname}</p>
 
-                        <div className="mt-6 flex w-full max-w-5xl flex-col gap-4 lg:flex-row lg:gap-6">
-                            <div className="w-full rounded-lg border-4 border-black p-4 lg:w-1/2 dark:border-white">
-                                <div className="mb-4 flex flex-col gap-2 lg:flex-row">
-                                    <button className="flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-400 focus:outline-none">
-                                        <MapPinPlus className="h-4 w-4" />
-                                        <p>Tambah</p>
-                                    </button>
+                        <div className="mt-6 flex w-full justify-center">
+                            <CardBox
+                                title="Kunci API"
+                                badge="API"
+                                description="Simpan API key kamu dengan aman. Kunci ini digunakan untuk mengakses endpoint layanan API kami."
+                                subtitle="Atur dan Simpan API Key-mu dengan Mudah"
+                            >
+                                {/* Token Display */}
+                                <div className="flex h-12 items-center justify-between rounded-md bg-gray-100 px-4 py-2 text-sm text-gray-800 dark:bg-gray-800 dark:text-green-400">
+                                    <span className="inline-block min-w-[160px] font-mono break-all select-none">{displayedToken}</span>
 
-                                    <button className="flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-400 focus:outline-none">
-                                        <MapPinX className="h-4 w-4" />
-                                        <p>Hapus</p>
-                                    </button>
-
-                                    <button className="flex items-center gap-2 rounded-md bg-yellow-400 px-4 py-2 text-white hover:bg-yellow-500 focus:outline-none">
-                                        <LocationEdit className="h-4 w-4" />
-                                        <p>Edit</p>
-                                    </button>
+                                    {token && !deleting && (
+                                        <button
+                                            onClick={handleCopy}
+                                            className="ml-2 rounded-md p-1 text-gray-600 hover:text-blue-600 dark:text-white"
+                                            title="Copy"
+                                        >
+                                            {copied ? <ClipboardCheck className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
+                                        </button>
+                                    )}
                                 </div>
 
-                                <div className="h-[270px]">
-                                    <AppMaps />
+                                {/* Buttons */}
+                                <div className="mt-4 flex gap-2">
+                                    {token ? (
+                                        <button
+                                            onClick={handleDelete}
+                                            disabled={deleting}
+                                            className="flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-500 focus:ring-2 focus:ring-red-400 focus:outline-none"
+                                        >
+                                            <Trash2 className="h-4 w-4" />
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={handleGenerate}
+                                            disabled={generating}
+                                            className="flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-500 focus:ring-2 focus:ring-green-400 focus:outline-none"
+                                        >
+                                            <Plus className="h-4 w-4" />
+                                        </button>
+                                    )}
                                 </div>
-                            </div>
-
-                            <div className="w-full lg:w-1/2">
-                                <CardBox
-                                    title="Kunci API"
-                                    badge="API"
-                                    description="Simpan API key kamu dengan aman. Kunci ini digunakan untuk mengakses endpoint layanan API kami."
-                                    subtitle="Atur dan Simpan API Key-mu dengan Mudah"
-                                >
-                                    {/* Token Display */}
-                                    <div className="flex h-12 items-center justify-between rounded-md bg-gray-100 px-4 py-2 text-sm text-gray-800 dark:bg-gray-800 dark:text-green-400">
-                                        <span className="inline-block min-w-[160px] font-mono break-all select-none">{displayedToken}</span>
-
-                                        {token && !deleting && (
-                                            <button
-                                                onClick={handleCopy}
-                                                className="ml-2 rounded-md p-1 text-gray-600 hover:text-blue-600 dark:text-white"
-                                                title="Copy"
-                                            >
-                                                {copied ? <ClipboardCheck className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
-                                            </button>
-                                        )}
-                                    </div>
-
-                                    {/* Buttons */}
-                                    <div className="mt-4 flex gap-2">
-                                        {token ? (
-                                            <button
-                                                onClick={handleDelete}
-                                                disabled={deleting}
-                                                className="flex items-center gap-2 rounded-md bg-red-600 px-4 py-2 text-white hover:bg-red-500 focus:ring-2 focus:ring-red-400 focus:outline-none"
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </button>
-                                        ) : (
-                                            <button
-                                                onClick={handleGenerate}
-                                                disabled={generating}
-                                                className="flex items-center gap-2 rounded-md bg-green-600 px-4 py-2 text-white hover:bg-green-500 focus:ring-2 focus:ring-green-400 focus:outline-none"
-                                            >
-                                                <Plus className="h-4 w-4" />
-                                            </button>
-                                        )}
-                                    </div>
-                                </CardBox>
-                            </div>
+                            </CardBox>
                         </div>
                     </div>
                 </div>

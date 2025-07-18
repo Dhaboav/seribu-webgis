@@ -8,7 +8,7 @@ type CardBoxProps = {
 
 export default function CardBox({ title, badge, description, subtitle, children }: CardBoxProps) {
     return (
-        <div className="w-full rounded-xl bg-white p-6 shadow-md">
+        <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-md">
             {/* Title and Badge */}
             <div className="mb-2 flex flex-wrap items-center space-x-2">
                 <h1 className="lg:text-xxl text-lg font-bold text-gray-800">{title}</h1>
