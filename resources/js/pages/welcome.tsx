@@ -17,8 +17,10 @@ export default function Welcome() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
     const { appName } = usePage().props as { appName?: string };
-    const { markers } = usePage<{ markers: { id: number; name: string; coords: string }[] }>().props;
-
+    const { markers, images } = usePage<{
+        markers: { id: number; name: string; coords: string }[];
+        images: Record<number, { file_path: string; time: string }>;
+    }>().props;
     return (
         <>
             <Head title={`Homepage - ${appName}`}>
@@ -90,7 +92,7 @@ export default function Welcome() {
                             </div>
                         </div>
                         <div className="mt-12 flex h-96 w-full items-center justify-center lg:mt-0 lg:w-1/2">
-                            <AppMaps markers={markers} />
+                            <AppMaps markers={markers} images={images} />
                         </div>
                     </section>
                 </main>

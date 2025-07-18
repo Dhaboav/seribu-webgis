@@ -14,7 +14,18 @@ type MarkerData = {
     coords: string;
 };
 
-export default function AppMaps({ markers = [] }: { markers: MarkerData[] }) {
+type ImageData = {
+    file_path: string;
+    time: string;
+};
+
+export default function AppMaps({
+    markers = [],
+    images = {},
+}: {
+    markers: MarkerData[];
+    images: Record<number, ImageData>; // key: loc_id
+}) {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: GOOGLE_MAPS_API_KEY,
     });
@@ -54,18 +65,21 @@ export default function AppMaps({ markers = [] }: { markers: MarkerData[] }) {
                 {markers.map((marker) => {
                     const [lat, lng] = marker.coords.split(',').map(parseFloat);
                     const isActive = activeMarkerId === marker.id;
+                    const image = images[marker.id]; 
 
                     return (
                         <Marker key={marker.id} position={{ lat, lng }} title={marker.name} onClick={() => setActiveMarkerId(marker.id)}>
                             {isActive && (
                                 <InfoWindow onCloseClick={() => setActiveMarkerId(null)}>
                                     <div className="w-48 text-sm">
-                                        <p className="font-semibold text-black mb-4">{marker.name}</p>
-                                        <img
-                                            src={`/storage/uploads/${marker.id}.jpg`}
-                                            alt={marker.name}
-                                            className="mb-2 h-24 w-full rounded-md object-cover"
-                                        />
+                                        <p className="mb-4 font-semibold text-black">{marker.name}</p>
+                                        {image && (
+                                            <img
+                                                src={`/storage/${image.file_path}`}
+                                                alt={marker.name}
+                                                className="mb-2 h-24 w-full rounded-md object-cover"
+                                            />
+                                        )}
                                         <p className="text-xs text-gray-500">
                                             Lat: {lat.toFixed(6)}, Lng: {lng.toFixed(6)}
                                         </p>

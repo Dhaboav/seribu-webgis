@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Api\ApiTokenController;
@@ -9,8 +10,17 @@ use App\Models\Location;
 Route::get('/', function () {
     $markers = Location::select('id', 'name', 'coords')->get();
 
+    $images = DB::table('datas')
+        ->select('loc_id', 'file_path', 'time')
+        ->whereIn('loc_id', $markers->pluck('id'))
+        ->orderBy('time', 'desc')
+        ->get()
+        ->groupBy('loc_id')
+        ->map(fn ($group) => $group->first());
+
     return Inertia::render('welcome', [
         'markers' => $markers,
+        'images' => $images,
     ]);
 
 })->name('home');
