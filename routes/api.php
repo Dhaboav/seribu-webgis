@@ -11,4 +11,5 @@ Route::middleware('auth:api', 'last_use_api_token')->group(function () {
     Route::delete('delete-marker', [LocationController::class, 'destroy']);
 
     Route::post('upload-data', [DatasController::class, 'store']);
+    Route::delete('delete-data', [DatasController::class, 'destroy']);
 });

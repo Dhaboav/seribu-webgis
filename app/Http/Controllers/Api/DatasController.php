@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Datas;
 
+use Illuminate\Support\Facades\File;
+
 
 class DatasController extends Controller
 {
@@ -44,5 +46,26 @@ class DatasController extends Controller
         return response()->json([
             'message' => 'Data added successfully'
         ], 201);
+    }
+
+    public function destroy(Request $request) {
+        $request->validate([
+            'data_id' => 'required|integer|exists:datas,id'
+        ]);
+
+        $data = Datas::findOrFail($request->data_id);
+
+        $imagePath = public_path($data->file_path); 
+
+        // Delete the image file if it exists
+        if (File::exists($imagePath)) {
+            File::delete($imagePath);
+        }
+
+        // Delete the database record
+        $data->delete();
+
+        // Respond with success
+        return response()->json(['message' => 'Data and associated file deleted successfully.']);
     }
 }
