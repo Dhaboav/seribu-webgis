@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\Api\ApiTokenController;
 use App\Models\Location;
 
+use Carbon\Carbon;
+
 Route::get('/', function () {
     $markers = Location::select('id', 'name', 'coords')->get();
 
@@ -18,9 +20,42 @@ Route::get('/', function () {
         ->groupBy('loc_id')
         ->map(fn ($group) => $group->first());
 
+    $raw = DB::table('datas')
+    ->select('file_path', 'is_trash', 'water_lvl', 'time')
+    ->orderBy('time', 'desc')
+    ->get();
+
+
+    $grouped = $raw->groupBy(function ($row) {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $row->time, 'UTC')
+                    ->setTimezone('Asia/Jakarta')
+                    ->toDateString();
+    })->map(function ($items, $date) {
+        return [
+            'question' => $date,
+            'answer' => $items->map(function ($i) {
+                return [
+                    'image' => $i->file_path,
+                    'time' => Carbon::createFromFormat('Y-m-d H:i:s', $i->time, 'UTC')
+                                    ->setTimezone('Asia/Jakarta')
+                                    ->format('H:i'),
+                    'trash' => $i->is_trash ? 'Ya' : 'Tidak',
+                    'height' => "{$i->water_lvl} cm",
+                ];
+            }),
+        ];
+    })->values();
+    
     return Inertia::render('welcome', [
         'markers' => $markers,
         'images' => $images->toArray(),
+        'data' => $grouped,
+    ]);
+
+    return Inertia::render('welcome', [
+        'markers' => $markers,
+        'images' => $images->toArray(),
+        'data' => $grouped
     ]);
 
 })->name('home');
