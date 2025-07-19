@@ -1,3 +1,4 @@
+import AppData from '@/components/app-data';
 import AppMaps from '@/components/app-maps';
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
@@ -94,6 +95,12 @@ export default function Welcome() {
                         <div className="mt-12 flex h-96 w-full items-center justify-center lg:mt-0 lg:w-1/2">
                             <AppMaps markers={markers} images={images} />
                         </div>
+                    </section>
+                    <section
+                        id="data-section"
+                        className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-purple-900 to-black px-8 text-center text-white lg:flex-row lg:px-36"
+                    >
+                        <AppData />
                     </section>
                 </main>
             </div>

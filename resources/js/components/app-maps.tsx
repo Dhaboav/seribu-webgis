@@ -65,7 +65,7 @@ export default function AppMaps({
                 {markers.map((marker) => {
                     const [lat, lng] = marker.coords.split(',').map(parseFloat);
                     const isActive = activeMarkerId === marker.id;
-                    const image = images[marker.id]; 
+                    const image = images[marker.id];
 
                     return (
                         <Marker key={marker.id} position={{ lat, lng }} title={marker.name} onClick={() => setActiveMarkerId(marker.id)}>
