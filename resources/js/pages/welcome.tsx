@@ -1,3 +1,4 @@
+import UserStatsCard from '@/components/app-chart';
 import AppData from '@/components/app-data';
 import AppMaps from '@/components/app-maps';
 import { type SharedData } from '@/types';
@@ -18,7 +19,7 @@ export default function Welcome() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
     const { appName } = usePage().props as { appName?: string };
-    const { markers, images, data } = usePage<{
+    const { markers, images, data, chartData } = usePage<{
         markers: { id: number; name: string; coords: string }[];
         images: Record<number, { file_path: string; time: string }>;
         data: {
@@ -30,7 +31,9 @@ export default function Welcome() {
                 height: string;
             }[];
         }[];
+        chartData: { time: string; height: number }[];
     }>().props;
+
     return (
         <>
             <Head title={`Homepage - ${appName}`}>
@@ -110,23 +113,11 @@ export default function Welcome() {
                         className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-purple-900 to-black px-8 text-center text-white lg:flex-row lg:px-36"
                     >
                         <div className="mt-8 flex w-full flex-col items-center justify-center lg:mt-0 lg:w-1/2">
-                            <h1 className="max-w-md bg-gradient-to-b from-white to-gray-600 bg-clip-text text-4xl leading-tight font-medium text-transparent md:text-5xl lg:text-6xl">
-                                SERIBU GEMASTIK
-                            </h1>
-                            <p className="text-md mt-4 max-w-md text-gray-400 opacity-90 md:text-lg lg:text-xl">
-                                <b>SERIBU</b> adalah teknologi pemantauan sungai cepat dan cerdas yang mendeteksi sampah secara real-time untuk
-                                menjaga kebersihan sungai.
-                            </p>
-                            <div className="mt-6 flex">
-                                <Link
-                                    href={route('docs')}
-                                    className="rounded-lg border-2 border-white bg-transparent p-3 font-semibold text-white shadow-md transition hover:bg-black"
-                                >
-                                    Dokumentasi
-                                </Link>
-                            </div>
+                            <span className="mb-2 text-xl font-bold">Chart Ketinggian Air</span>
+                            <UserStatsCard data={chartData} />
                         </div>
-                        <div className="mt-12 flex w-full lg:mt-0 lg:w-1/2 lg:max-w-sm">
+                        <div className="mt-12 flex w-full flex-col lg:mt-0 lg:w-1/2 lg:max-w-md">
+                            <span className="mb-2 text-xl font-bold">Data Historis Sampah</span>
                             <AppData data={data} />
                         </div>
                     </section>
