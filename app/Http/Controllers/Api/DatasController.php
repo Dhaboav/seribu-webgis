@@ -43,8 +43,11 @@ class DatasController extends Controller
             'file_path' => $path,
         ]);
 
+        $url = Storage::disk('public')->url($path);
+
         return response()->json([
-            'message' => 'Data added successfully'
+            'message' => 'Data added successfully',
+            'file_url' => $url
         ], 201);
     }
 
