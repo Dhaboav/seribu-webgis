@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -97,6 +98,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('delete-token', [ApiTokenController::class, 'destroy'])
         ->name('token.delete');
 
+});
+
+Route::get('/check-uploads', function () {
+    $files = Storage::disk('public')->files('uploads');
+    return response()->json($files);
 });
 
 require __DIR__.'/settings.php';
