@@ -12,7 +12,7 @@ class ApiTokenController extends Controller
     /**
      * Retrieve the current user's API token (hashed).
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request      $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request): JsonResponse
@@ -27,7 +27,7 @@ class ApiTokenController extends Controller
     /**
      * Generate and store a new API token for the authenticated user.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request      $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request): JsonResponse
@@ -37,13 +37,13 @@ class ApiTokenController extends Controller
         $plainToken = Str::random(24);
 
         $user->forceFill([
-            'api_token' => $plainToken,
-            'api_token_expires_at' => null,
+            'api_token'              => $plainToken,
+            'api_token_expires_at'   => null,
             'api_token_last_used_at' => null,
         ])->save();
 
         return response()->json([
-            'token' => $plainToken,
+            'token'      => $plainToken,
             'expires_at' => $user->api_token_expires_at,
         ]);
     }
@@ -51,7 +51,7 @@ class ApiTokenController extends Controller
     /**
      * Revoke the current user's API token.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request      $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request): JsonResponse
@@ -59,8 +59,8 @@ class ApiTokenController extends Controller
         $user = $request->user();
 
         $user->forceFill([
-            'api_token' => null,
-            'api_token_expires_at' => null,
+            'api_token'              => null,
+            'api_token_expires_at'   => null,
             'api_token_last_used_at' => null,
         ])->save();
 

@@ -7,9 +7,9 @@ uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 /**
  * Test: User can get token
  */
-test('user can get token', function () {
+test('user can get token', function() {
     $user = User::factory()->create([
-        'api_token' => 'sampletoken',
+        'api_token'            => 'sampletoken',
         'api_token_expires_at' => now()->addDays(30),
     ]);
 
@@ -26,7 +26,7 @@ test('user can get token', function () {
 /**
  * Test: User can create token
  */
-test('user can create token', function () {
+test('user can create token', function() {
     $user = User::factory()->create();
 
     $response = $this
@@ -43,7 +43,7 @@ test('user can create token', function () {
 /**
  * Test: User can delete token
  */
-test('user can delete token', function () {
+test('user can delete token', function() {
     $user = User::factory()->create([
         'api_token' => 'tobedeleted',
     ]);

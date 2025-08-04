@@ -5,8 +5,7 @@ use App\Http\Controllers\Api\LocationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
-Route::middleware('auth:api', 'last_use_api_token')->group(function () {
+Route::middleware('auth:api', 'last_use_api_token')->group(function() {
     Route::post('create-marker', [LocationController::class, 'store']);
     Route::delete('delete-marker', [LocationController::class, 'destroy']);
 

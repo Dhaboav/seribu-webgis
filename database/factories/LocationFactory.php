@@ -10,8 +10,8 @@ class LocationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->city,
-            'coords' => $this->faker->latitude . ',' . $this->faker->longitude,
+            'name'    => $this->faker->city,
+            'coords'  => $this->faker->latitude . ',' . $this->faker->longitude,
             'user_id' => User::factory()
         ];
     }

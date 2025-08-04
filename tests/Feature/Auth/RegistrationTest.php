@@ -2,17 +2,17 @@
 
 uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
 
-test('registration screen can be rendered', function () {
+test('registration screen can be rendered', function() {
     $response = $this->get('/retsiger');
 
     $response->assertStatus(200);
 });
 
-test('new users can register', function () {
+test('new users can register', function() {
     $response = $this->post('/retsiger', [
-        'name' => 'Test User',
-        'email' => 'test@example.com',
-        'password' => 'password',
+        'name'                  => 'Test User',
+        'email'                 => 'test@example.com',
+        'password'              => 'password',
         'password_confirmation' => 'password',
     ]);
 

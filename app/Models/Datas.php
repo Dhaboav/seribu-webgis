@@ -12,12 +12,24 @@ class Datas extends Model
     protected $table = 'datas';
 
     protected $fillable = [
-        'user_id', 
+        'user_id',
         'loc_id',
-        'is_trash', 
-        'water_lvl', 
+        'is_trash',
+        'water_lvl',
         'file_path'
     ];
 
     public $timestamps = false;
+
+    // Relasi dengan model Location
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'loc_id');
+    }
+
+    // Relasi dengan model User
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

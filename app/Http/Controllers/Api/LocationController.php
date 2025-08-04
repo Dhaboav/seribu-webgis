@@ -3,22 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-
 use Illuminate\Http\Request;
-
 use App\Models\Location;
 
 class LocationController extends Controller
 {
-        /**
+    /**
      * Handle an incoming uploading image request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $request->validate([
-            'name' => 'required|string',
-            'coords' => 'required|string',
+            'name'    => 'required|string',
+            'coords'  => 'required|string',
             'user_id' => 'required|integer|exists:users,id'
         ]);
 
@@ -29,7 +28,8 @@ class LocationController extends Controller
         ], 201);
     }
 
-    public function destroy(Request $request) {
+    public function destroy(Request $request)
+    {
         $request->validate([
             'id' => 'required|integer|exists:locations,id'
         ]);
@@ -40,5 +40,4 @@ class LocationController extends Controller
             'message' => 'Location deleted successfully'
         ]);
     }
-
 }

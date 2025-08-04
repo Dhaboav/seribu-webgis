@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Controllers\Api\ApiTokenController;
 use App\Models\Location;
-
 use Carbon\Carbon;
 
-Route::get('/', function () {
+Route::get('/', function() {
     $markers = Location::select('id', 'name', 'coords')->get();
 
     $images = DB::table('datas')
@@ -27,20 +26,20 @@ Route::get('/', function () {
     ->get();
 
 
-    $grouped = $raw->groupBy(function ($row) {
+    $grouped = $raw->groupBy(function($row) {
         return Carbon::createFromFormat('Y-m-d H:i:s', $row->time, 'UTC')
                     ->setTimezone('Asia/Jakarta')
                     ->toDateString();
-    })->map(function ($items, $date) {
+    })->map(function($items, $date) {
         return [
             'question' => $date,
-            'answer' => $items->map(function ($i) {
+            'answer'   => $items->map(function($i) {
                 return [
                     'image' => $i->file_path,
-                    'time' => Carbon::createFromFormat('Y-m-d H:i:s', $i->time, 'UTC')
+                    'time'  => Carbon::createFromFormat('Y-m-d H:i:s', $i->time, 'UTC')
                                     ->setTimezone('Asia/Jakarta')
                                     ->format('H:i'),
-                    'trash' => $i->is_trash ? 'Ya' : 'Tidak',
+                    'trash'  => $i->is_trash ? 'Ya' : 'Tidak',
                     'height' => "{$i->water_lvl} cm",
                 ];
             }),
@@ -54,12 +53,12 @@ Route::get('/', function () {
     $today = Carbon::now('Asia/Jakarta')->toDateString();
 
     // Ambil semua data hari ini (Asia/Jakarta) dan map jadi array {time, height}
-    $todayData = $raw->filter(function ($row) use ($today) {
+    $todayData = $raw->filter(function($row) use ($today) {
         $localDate = Carbon::createFromFormat('Y-m-d H:i:s', $row->time, 'UTC')
                     ->setTimezone('Asia/Jakarta')
                     ->toDateString();
         return $localDate === $today;
-    })->map(function ($row) {
+    })->map(function($row) {
         return [
             'time' => Carbon::createFromFormat('Y-m-d H:i:s', $row->time, 'UTC')
                         ->setTimezone('Asia/Jakarta')
@@ -68,22 +67,21 @@ Route::get('/', function () {
         ];
     })->sortBy('time')->values()->all();
 
-    
+
     return Inertia::render('welcome', [
-        'markers' => $markers,
-        'images' => $images->toArray(),
-        'data' => $grouped,
+        'markers'   => $markers,
+        'images'    => $images->toArray(),
+        'data'      => $grouped,
         'chartData' => $todayData
     ]);
-
 })->name('home');
 
-Route::get('/docs', function () {
+Route::get('/docs', function() {
     return Inertia::render('docs');
 })->name('docs');
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
+Route::middleware(['auth', 'verified'])->group(function() {
+    Route::get('dashboard', function() {
         return Inertia::render('dashboard', [
             'fullname' => auth()->user()->name
         ]);
@@ -97,13 +95,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('delete-token', [ApiTokenController::class, 'destroy'])
         ->name('token.delete');
-
 });
 
-Route::get('/check-uploads', function () {
+Route::get('/check-uploads', function() {
     $files = Storage::disk('public')->files('uploads');
     return response()->json($files);
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
