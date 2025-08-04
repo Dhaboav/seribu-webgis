@@ -94,7 +94,7 @@ class DatasController extends Controller
         // Construct the message
         $message = "⚠️ Peringatan Sampah! ⚠️\n\n";
         $message .= "Pengguna: {$userName}\n";
-        $message .= "Lokasi: {$locationName}\n";  // Use location name instead of ID
+        $message .= "Lokasi: {$locationName}\n"; 
         $message .= "Tinggi Air: {$data->water_lvl} CM\n";
         $message .= "Waktu: " . now();
 
@@ -107,7 +107,7 @@ class DatasController extends Controller
 
         // Send the file using Telegram Bot API
         $response = Http::withOptions([
-            'verify' => false // Disable SSL verification
+            'verify' => app()->environment('production') 
         ])->attach(
             'document',
             file_get_contents($filePath),
