@@ -45,33 +45,10 @@ Route::get('/', function() {
         ];
     })->values();
 
-    // -------------------------------------------
-    // Buat data chart: time terbaru hari ini dan heightnya
-    // -------------------------------------------
-
-    $today = Carbon::now('Asia/Jakarta')->toDateString();
-
-    // Ambil semua data hari ini (Asia/Jakarta) dan map jadi array {time, height}
-    $todayData = $raw->filter(function($row) use ($today) {
-        $localDate = Carbon::createFromFormat('Y-m-d H:i:s', $row->time, 'UTC')
-                    ->setTimezone('Asia/Jakarta')
-                    ->toDateString();
-        return $localDate === $today;
-    })->map(function($row) {
-        return [
-            'time' => Carbon::createFromFormat('Y-m-d H:i:s', $row->time, 'UTC')
-                        ->setTimezone('Asia/Jakarta')
-                        ->format('H:i'),
-            'height' => (float) $row->water_lvl,
-        ];
-    })->sortBy('time')->values()->all();
-
-
     return Inertia::render('welcome', [
         'markers'   => $markers,
         'images'    => $images->toArray(),
         'data'      => $grouped,
-        'chartData' => $todayData
     ]);
 })->name('home');
 

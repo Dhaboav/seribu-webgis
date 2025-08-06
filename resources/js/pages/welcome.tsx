@@ -19,7 +19,7 @@ export default function Welcome() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => setIsMenuOpen((prev) => !prev);
     const { appName } = usePage().props as { appName?: string };
-    const { markers, images, data, chartData } = usePage<{
+    const { markers, images, data } = usePage<{
         markers: { id: number; name: string; coords: string }[];
         images: Record<number, { file_path: string; time: string }>;
         data: {
@@ -28,10 +28,8 @@ export default function Welcome() {
                 image: string;
                 time: string;
                 trash: string;
-                height: string;
             }[];
         }[];
-        chartData: { time: string; height: number }[];
     }>().props;
 
     return (
