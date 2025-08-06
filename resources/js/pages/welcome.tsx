@@ -38,9 +38,9 @@ export default function Welcome() {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
 
-            <div className="flex flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]">
+            <div className="flex flex-col bg-cyan-300 text-[#1b1b18]">
                 <header className="mx-auto mb-6 w-full max-w-screen-xl px-4">
-                    <nav className="fixed start-0 top-0 z-20 w-full py-4">
+                    <nav className="fixed start-0 top-0 z-20 w-full bg-cyan-300 py-4">
                         {auth.user ? (
                             <Link
                                 href={route('dashboard')}
