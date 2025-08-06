@@ -1,4 +1,3 @@
-import UserStatsCard from '@/components/app-chart';
 import AppData from '@/components/app-data';
 import AppMaps from '@/components/app-maps';
 import { type SharedData } from '@/types';
@@ -8,7 +7,7 @@ import { useState } from 'react';
 
 function NavItem({ href, children }: { href: string; children: React.ReactNode }) {
     return (
-        <li className="block w-full border-b border-gray-600 py-4 text-gray-300 hover:border-b-2 hover:border-b-white hover:text-gray-400 md:border-0">
+        <li className="block w-full border-b border-gray-600 py-4 text-black hover:border-b-2 hover:border-b-white hover:text-gray-400 md:border-0">
             <Link href={href}>{children}</Link>
         </li>
     );
@@ -41,7 +40,7 @@ export default function Welcome() {
 
             <div className="flex flex-col bg-[#FDFDFC] text-[#1b1b18] dark:bg-[#0a0a0a]">
                 <header className="mx-auto mb-6 w-full max-w-screen-xl px-4">
-                    <nav className="fixed start-0 top-0 z-20 w-full bg-black py-4">
+                    <nav className="fixed start-0 top-0 z-20 w-full py-4">
                         {auth.user ? (
                             <Link
                                 href={route('dashboard')}
@@ -53,11 +52,11 @@ export default function Welcome() {
                             <div className="flex flex-wrap items-center justify-between px-8 lg:px-36">
                                 <div className="flex items-center space-x-1">
                                     <img src="/vite.svg" alt="Logo" />
-                                    <span className="font-semibold text-gray-300">{appName}</span>
+                                    <span className="font-semibold text-black">{appName}</span>
                                 </div>
                                 <button
                                     onClick={toggleMenu}
-                                    className="text-2xl text-gray-300 md:hidden"
+                                    className="text-2xl text-black md:hidden"
                                     aria-label="Toggle Menu"
                                     aria-expanded={isMenuOpen}
                                     aria-controls="mobile-menu"
@@ -80,38 +79,36 @@ export default function Welcome() {
                     </nav>
                 </header>
 
-                <main className="bg-black">
-                    <section
-                        id="hero-section"
-                        className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-black to-purple-900 px-8 text-center text-white lg:flex-row lg:px-36"
-                    >
-                        <div className="mt-8 flex w-full flex-col items-center justify-center lg:mt-0 lg:w-1/2">
-                            <h1 className="max-w-md bg-gradient-to-b from-white to-gray-600 bg-clip-text text-4xl leading-tight font-medium text-transparent md:text-5xl lg:text-6xl">
-                                SERIBU GEMASTIK
+                <main className="bg-white text-black">
+                    <section className="h-screen bg-gradient-to-b from-cyan-300 to-white px-8 text-center">
+                        <div className="flex h-full flex-col items-center justify-center">
+                            <h1 className="max-w-md bg-gradient-to-b from-gray-600 to-gray-700 bg-clip-text text-4xl leading-tight font-medium text-transparent md:text-5xl lg:text-6xl">
+                                SERIBU-Sungai
                             </h1>
-                            <p className="text-md mt-4 max-w-md text-gray-400 opacity-90 md:text-lg lg:text-xl">
+                            <p className="text-md mt-4 max-w-md text-gray-800 opacity-90 md:text-lg lg:text-xl">
                                 <b>SERIBU</b> adalah teknologi pemantauan sungai cepat dan cerdas yang mendeteksi sampah secara real-time untuk
                                 menjaga kebersihan sungai.
                             </p>
-                            <div className="mt-6 flex">
+                            <div className="mt-6">
                                 <Link
                                     href={route('docs')}
-                                    className="rounded-lg border-2 border-white bg-transparent p-3 font-semibold text-white shadow-md transition hover:bg-black"
+                                    className="rounded-lg border-2 border-black bg-transparent p-3 font-semibold text-black shadow-md transition hover:bg-white"
                                 >
                                     Dokumentasi
                                 </Link>
                             </div>
                         </div>
-                        <div className="mt-12 flex h-96 w-full items-center justify-center lg:mt-0 lg:w-1/2">
-                            <AppMaps markers={markers} images={images} />
-                        </div>
                     </section>
-                    <section
-                        id="data-section"
-                        className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-purple-900 to-black px-8 text-center text-white lg:flex-row lg:px-36"
-                    >
-                        <div className="mt-12 flex w-full flex-col lg:mt-0 lg:w-1/2 lg:max-w-md">
-                            <span className="mb-2 text-xl font-bold">Data Historis Sampah</span>
+
+                    <section className="flex flex-col gap-12 px-8 py-12 lg:flex-row lg:items-start lg:px-36">
+                        <div className="flex w-full justify-center lg:w-1/2">
+                            <div className="h-96 w-full">
+                                <AppMaps markers={markers} images={images} />
+                            </div>
+                        </div>
+
+                        <div className="w-full lg:w-1/2 lg:max-w-md">
+                            <h2 className="mb-4 text-xl font-bold">Data Historis Sampah</h2>
                             <AppData data={data} />
                         </div>
                     </section>
