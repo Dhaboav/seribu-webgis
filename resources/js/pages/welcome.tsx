@@ -122,6 +122,16 @@ export default function Welcome() {
                         </div>
                     </section>
                 </main>
+
+                <div className="group fixed right-6 bottom-6 z-50">
+                    <a href="https://t.me/SeribuBot" target="_blank" rel="noopener noreferrer">
+                        <img
+                            src="/telegram-logo.svg"
+                            alt="Telegram Bot"
+                            className="h-12 w-12 hover:scale-110 hover:brightness-75 hover:grayscale hover:filter"
+                        />
+                    </a>
+                </div>
             </div>
         </>
     );
