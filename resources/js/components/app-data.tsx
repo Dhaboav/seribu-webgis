@@ -4,7 +4,6 @@ type AnswerItem = {
     image: string;
     time: string;
     trash: string;
-    height: string;
 };
 
 type DataItem = {
@@ -36,10 +35,6 @@ export default function AppData({ data }: AppDataProps) {
                                             <div className="flex justify-between">
                                                 <span className="font-semibold text-gray-300">Sampah:</span>
                                                 <span className="text-white">{item.trash}</span>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <span className="font-semibold text-gray-300">Tinggi Air:</span>
-                                                <span className="text-white">{item.height}</span>
                                             </div>
                                         </div>
                                     </div>

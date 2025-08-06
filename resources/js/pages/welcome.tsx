@@ -112,10 +112,6 @@ export default function Welcome() {
                         id="data-section"
                         className="flex h-screen flex-col items-center justify-center bg-gradient-to-b from-purple-900 to-black px-8 text-center text-white lg:flex-row lg:px-36"
                     >
-                        <div className="mt-8 flex w-full flex-col items-center justify-center lg:mt-0 lg:w-1/2">
-                            <span className="mb-2 text-xl font-bold">Chart Ketinggian Air</span>
-                            <UserStatsCard data={chartData} />
-                        </div>
                         <div className="mt-12 flex w-full flex-col lg:mt-0 lg:w-1/2 lg:max-w-md">
                             <span className="mb-2 text-xl font-bold">Data Historis Sampah</span>
                             <AppData data={data} />
@@ -124,7 +120,7 @@ export default function Welcome() {
                 </main>
 
                 <div className="group fixed right-6 bottom-6 z-50">
-                    <a href="https://t.me/SeribuBot" target="_blank" rel="noopener noreferrer">
+                    <a href="https://t.me/+jVjMWzKmy2FhZTM1" target="_blank" rel="noopener noreferrer">
                         <img
                             src="/telegram-logo.svg"
                             alt="Telegram Bot"

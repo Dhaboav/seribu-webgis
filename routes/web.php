@@ -21,7 +21,7 @@ Route::get('/', function() {
         ->map(fn ($group) => $group->first());
 
     $raw = DB::table('datas')
-    ->select('file_path', 'is_trash', 'water_lvl', 'time')
+    ->select('file_path', 'is_trash', 'time')
     ->orderBy('time', 'desc')
     ->get();
 
@@ -40,7 +40,6 @@ Route::get('/', function() {
                                     ->setTimezone('Asia/Jakarta')
                                     ->format('H:i'),
                     'trash'  => $i->is_trash ? 'Ya' : 'Tidak',
-                    'height' => "{$i->water_lvl} cm",
                 ];
             }),
         ];

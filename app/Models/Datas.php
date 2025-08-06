@@ -15,7 +15,6 @@ class Datas extends Model
         'user_id',
         'loc_id',
         'is_trash',
-        'water_lvl',
         'file_path'
     ];
 

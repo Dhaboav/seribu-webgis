@@ -15,7 +15,6 @@ return new class () extends Migration {
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('loc_id')->constrained('locations')->onDelete('cascade');
             $table->boolean('is_trash');
-            $table->float('water_lvl', 8, 2);
             $table->string('file_path');
             $table->timestamp('time')->useCurrent();
         });

@@ -22,7 +22,6 @@ class DatasController extends Controller
             'user_id'   => 'required|integer|exists:users,id',
             'loc_id'    => 'required|integer|exists:locations,id',
             'is_trash'  => 'required|boolean',
-            'water_lvl' => 'required|numeric',
             'file'      => 'required|image|mimes:jpg|max:2048'
         ]);
 
@@ -36,7 +35,6 @@ class DatasController extends Controller
             'user_id'   => $request->user_id,
             'loc_id'    => $request->loc_id,
             'is_trash'  => $request->is_trash,
-            'water_lvl' => $request->water_lvl,
             'file_path' => $path,
         ]);
 
@@ -93,9 +91,8 @@ class DatasController extends Controller
 
         // Construct the message
         $message = "⚠️ Peringatan Sampah! ⚠️\n\n";
-        $message .= "Pengguna: {$userName}\n";
+        // $message .= "Pengguna: {$userName}\n";
         $message .= "Lokasi: {$locationName}\n"; 
-        $message .= "Tinggi Air: {$data->water_lvl} CM\n";
         $message .= "Waktu: " . now();
 
         // Fetch bot token and chat ID from the config file
