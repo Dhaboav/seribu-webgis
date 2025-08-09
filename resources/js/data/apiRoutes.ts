@@ -13,8 +13,7 @@ Headers:
 Body:
     user_id: {id akun},
     loc_id: {id lokasi},
-    is_trash: 1,
-    water_lvl: 0.90
+    is_trash: {1/0},
     file: (image file)`,
 
         response: `{
